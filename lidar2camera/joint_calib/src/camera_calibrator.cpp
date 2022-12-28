@@ -75,7 +75,9 @@ void CameraCalibrator::get_result(cv::Mat &camera_matrix, cv::Mat &k,
   Eigen::VectorXd distort(2);
   distort << k.at<double>(0, 0), k.at<double>(0, 1);
 
+  std::cout << "Camera Intrinsic" << std::endl;
   std::cout << camera_intrinsic << std::endl;
+  std::cout << "Camera Distortion" << std::endl;
   std::cout << distort << std::endl;
 
   std::vector<Eigen::MatrixXd> vec_extrinsics;
@@ -187,6 +189,8 @@ void CameraCalibrator::get_result(cv::Mat &camera_matrix, cv::Mat &k,
   initial_extrinsic << -0.0000667338, -0.9999999780, 0.0001990654,
       -0.0010031200, -0.0000409491, 0.0001990681, 0.9999999793, 0.5912607639,
       -0.9999999969, 0.0000667257, -0.0000409624, 2.5079706347;
+
+  std::cout << "Using below as initial extrinsic parameters," << std::endl;
   std::cout << initial_extrinsic << std::endl;
 
   this->refine_lidar2camera(camera_intrinsic, distort, vec_extrinsics,
@@ -245,6 +249,9 @@ void CameraCalibrator::get_result(cv::Mat &camera_matrix, cv::Mat &k,
       number++;
     }
   }
+
+  std::cout << "Extrinsic Calibration Result:" << std::endl;
+  std::cout << initial_extrinsic << std::endl;
   std::cout << "lidar reprojection error: " << lidar_reprojection_error / number
             << std::endl;
 }
